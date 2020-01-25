@@ -1,4 +1,4 @@
-package org.codecraftlabs.brl
+package org.codecraftlabs.ssp
 
 import org.apache.log4j.Logger
 
