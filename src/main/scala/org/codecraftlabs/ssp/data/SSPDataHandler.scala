@@ -1,5 +1,8 @@
 package org.codecraftlabs.ssp.data
 
+import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.{DataFrame, SparkSession}
+
 object SSPDataHandler {
   val CsvColumns: Seq[String] = Seq("NUM_BO",
     "ANO_BO",
@@ -64,4 +67,10 @@ object SSPDataHandler {
     "occupation",
     "educationLevel"
   )
+
+  def readContents(file: String, session: SparkSession, hasHeader: Boolean = true, delimiter: String = ","): DataFrame = {
+    session.read.format("csv").schema(getSchema(CsvColumns.toList)).option("header", hasHeader.toString).option("delimiter", delimiter).load(file)
+  }
+
+  private def getSchema(colNames: List[String]): StructType = ???
 }
