@@ -1,10 +1,11 @@
 package org.codecraftlabs.ssp.data
 
-import org.apache.spark.sql.types.StructType
+import org.apache.spark.sql.types.{IntegerType, LongType, StringType, StructField, StructType}
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object SSPDataHandler {
-  val CsvColumns: Seq[String] = Seq("NUM_BO",
+  val CsvColumns: Seq[String] = Seq(
+    "NUM_BO",
     "ANO_BO",
     "ID_DELEGACIA",
     "NOME_DEPARTAMENTO",
@@ -36,7 +37,8 @@ object SSPDataHandler {
     "DESCR_GRAU_INSTRUCAO"
   )
 
-  val ColumnNames: Seq[String] = Seq("reportNumber",
+  val ColumnNames: Seq[String] = Seq(
+    "reportNumber",
     "reportYear",
     "policeStationId",
     "departmentName",
@@ -72,5 +74,23 @@ object SSPDataHandler {
     session.read.format("csv").schema(getSchema(CsvColumns.toList)).option("header", hasHeader.toString).option("delimiter", delimiter).load(file)
   }
 
-  private def getSchema(colNames: List[String]): StructType = ???
+  private def getSchema(colNames: List[String]): StructType = {
+    val policeReportNumberField = StructField(colNames.head, LongType, nullable = true)
+    val policeReportYearField = StructField(colNames(1), IntegerType, nullable = true)
+    val policeStationIdField = StructField(colNames(2), IntegerType, nullable = true)
+    val departmentNameField = StructField(colNames(3), StringType, nullable = true)
+    val sectionNameField = StructField(colNames(4), StringType, nullable = true)
+    val policeStationNameField = StructField(colNames(5), StringType, nullable = true)
+
+    val fields = List(
+      policeReportNumberField,
+      policeReportYearField,
+      policeStationIdField,
+      departmentNameField,
+      sectionNameField,
+      policeStationNameField
+    )
+
+    StructType(fields)
+  }
 }
