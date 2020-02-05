@@ -89,6 +89,9 @@ object SSPDataHandler {
     val reportDateField = StructField(colNames(11), StringType, nullable = true)
     val reportTimeField = StructField(colNames(12), StringType, nullable = true)
     val flagStatusField = StructField(colNames(13), StringType, nullable = true)
+    val signatureField = StructField(colNames(14), StringType, nullable = true)
+    val aftermathField = StructField(colNames(15), StringType, nullable = true)
+    val proceedingsField = StructField(colNames(16), StringType, nullable = true)
 
     val fields = List(
       policeReportNumberField,
@@ -104,7 +107,10 @@ object SSPDataHandler {
       monthField,
       reportDateField,
       reportTimeField,
-      flagStatusField
+      flagStatusField,
+      signatureField,
+      aftermathField,
+      proceedingsField
     )
 
     StructType(fields)
