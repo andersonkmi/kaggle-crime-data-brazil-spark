@@ -92,6 +92,19 @@ object SSPDataHandler {
     val signatureField = StructField(colNames(14), StringType, nullable = true)
     val aftermathField = StructField(colNames(15), StringType, nullable = true)
     val proceedingsField = StructField(colNames(16), StringType, nullable = true)
+    val latitudeField = StructField(colNames(17), StringType, nullable = true)
+    val longitudeField = StructField(colNames(18), StringType, nullable = true)
+    val cityField = StructField(colNames(19), StringType, nullable = true)
+    val addressField = StructField(colNames(20), StringType, nullable = true)
+    val addressNumber = StructField(colNames(21), StringType, nullable = true)
+    val flagStatus2Field = StructField(colNames(22), StringType, nullable = true)
+    val personTypeDescriptionField = StructField(colNames(23), StringType, nullable = true)
+    val personContField = StructField(colNames(24), StringType, nullable = true)
+    val genderField = StructField(colNames(25), StringType, nullable = true)
+    val ageField = StructField(colNames(26), StringType, nullable = true)
+    val colorField = StructField(colNames(27), StringType, nullable = true)
+    val occupationField = StructField(colNames(28), StringType, nullable = true)
+    val educationLevelField = StructField(colNames(29), StringType, nullable = true)
 
     val fields = List(
       policeReportNumberField,
@@ -110,7 +123,20 @@ object SSPDataHandler {
       flagStatusField,
       signatureField,
       aftermathField,
-      proceedingsField
+      proceedingsField,
+      latitudeField,
+      longitudeField,
+      cityField,
+      addressField,
+      addressNumber,
+      flagStatus2Field,
+      personTypeDescriptionField,
+      personContField,
+      genderField,
+      ageField,
+      colorField,
+      occupationField,
+      educationLevelField
     )
 
     StructType(fields)
