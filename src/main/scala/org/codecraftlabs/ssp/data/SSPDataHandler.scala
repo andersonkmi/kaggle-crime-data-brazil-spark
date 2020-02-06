@@ -70,8 +70,12 @@ object SSPDataHandler {
     "educationLevel"
   )
 
-  def readContents(file: String, session: SparkSession, hasHeader: Boolean = true, delimiter: String = ","): DataFrame = {
-    session.read.format("csv").schema(getSchema(CsvColumns.toList)).option("header", hasHeader.toString).option("delimiter", delimiter).load(file)
+  def readContents(file: String, formatName: String, session: SparkSession, hasHeader: Boolean = true, delimiter: String = ","): DataFrame = {
+    session.read.format(formatName)
+      .schema(getSchema(CsvColumns.toList))
+      .option("header", hasHeader.toString)
+      .option("delimiter", delimiter)
+      .load(file)
   }
 
   private def getSchema(colNames: List[String]): StructType = {
