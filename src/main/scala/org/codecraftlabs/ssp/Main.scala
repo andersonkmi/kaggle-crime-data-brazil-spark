@@ -8,6 +8,7 @@ import org.codecraftlabs.ssp.data.SSPDataHandler.readContents
 
 object Main {
   private val InputFolder: String = "--input-folder"
+  private val GeneralInputFolder: String = "--general-input-folder"
 
   def main(args: Array[String]): Unit = {
 
@@ -21,7 +22,7 @@ object Main {
     import sparkSession.implicits._
 
     logger.info("Loading all CSV files")
-    val policeReports = timed("Reading all police reports", readContents("csv", s"$inputFolder/*.csv", sparkSession))
+    val policeReports = timed("Reading all police reports", readContents(s"$inputFolder/*.csv", "csv", sparkSession))
     policeReports.show(10)
   }
 }

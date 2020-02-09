@@ -27,7 +27,7 @@ object SSPDataHandler {
     "CIDADE",
     "LOGRADOURO",
     "NUMERO_LOGRADOURO",
-    "FLAG_STATUS",
+    "FLAG_STATUS_2",
     "DESCR_TIPO_PESSOA",
     "CONT_PESSOA",
     "SEXO_PESSOA",
