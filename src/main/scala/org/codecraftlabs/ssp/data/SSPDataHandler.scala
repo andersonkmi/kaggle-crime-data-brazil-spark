@@ -4,7 +4,7 @@ import org.apache.spark.sql.types.{IntegerType, LongType, StringType, StructFiel
 import org.apache.spark.sql.{DataFrame, SparkSession}
 
 object SSPDataHandler {
-  val CsvColumns: Seq[String] = Seq(
+  private val standardPoliceReportCsvColumns: Seq[String] = Seq(
     "NUM_BO",
     "ANO_BO",
     "ID_DELEGACIA",
@@ -37,7 +37,7 @@ object SSPDataHandler {
     "DESCR_GRAU_INSTRUCAO"
   )
 
-  val ColumnNames: Seq[String] = Seq(
+  val StandardPoliceReportColumnNames: Seq[String] = Seq(
     "reportNumber",
     "reportYear",
     "policeStationId",
@@ -70,45 +70,46 @@ object SSPDataHandler {
     "educationLevel"
   )
 
-  def readContents(file: String, formatName: String, session: SparkSession, hasHeader: Boolean = true, delimiter: String = ","): DataFrame = {
+  def readContents(file: String, formatName: String, session: SparkSession, structType: StructType, hasHeader: Boolean = true, delimiter: String = ","): DataFrame = {
     session.read.format(formatName)
-      .schema(getSchema(CsvColumns.toList))
+      .schema(structType)
       .option("header", hasHeader.toString)
       .option("delimiter", delimiter)
       .load(file)
   }
 
-  private def getSchema(colNames: List[String]): StructType = {
-    val policeReportNumberField = StructField(colNames.head, LongType, nullable = true)
-    val policeReportYearField = StructField(colNames(1), IntegerType, nullable = true)
-    val policeStationIdField = StructField(colNames(2), IntegerType, nullable = true)
-    val departmentNameField = StructField(colNames(3), StringType, nullable = true)
-    val sectionNameField = StructField(colNames(4), StringType, nullable = true)
-    val policeStationNameField = StructField(colNames(5), StringType, nullable = true)
-    val circDepartmentNameField = StructField(colNames(6), StringType, nullable = true)
-    val circSectionNameField = StructField(colNames(7), StringType, nullable = true)
-    val circPoliceStationField = StructField(colNames(8), StringType, nullable = true)
-    val yearField = StructField(colNames(9), IntegerType, nullable = true)
-    val monthField = StructField(colNames(10), IntegerType, nullable = true)
-    val reportDateField = StructField(colNames(11), StringType, nullable = true)
-    val reportTimeField = StructField(colNames(12), StringType, nullable = true)
-    val flagStatusField = StructField(colNames(13), StringType, nullable = true)
-    val signatureField = StructField(colNames(14), StringType, nullable = true)
-    val aftermathField = StructField(colNames(15), StringType, nullable = true)
-    val proceedingsField = StructField(colNames(16), StringType, nullable = true)
-    val latitudeField = StructField(colNames(17), StringType, nullable = true)
-    val longitudeField = StructField(colNames(18), StringType, nullable = true)
-    val cityField = StructField(colNames(19), StringType, nullable = true)
-    val addressField = StructField(colNames(20), StringType, nullable = true)
-    val addressNumber = StructField(colNames(21), StringType, nullable = true)
-    val flagStatus2Field = StructField(colNames(22), StringType, nullable = true)
-    val personTypeDescriptionField = StructField(colNames(23), StringType, nullable = true)
-    val personContField = StructField(colNames(24), StringType, nullable = true)
-    val genderField = StructField(colNames(25), StringType, nullable = true)
-    val ageField = StructField(colNames(26), StringType, nullable = true)
-    val colorField = StructField(colNames(27), StringType, nullable = true)
-    val occupationField = StructField(colNames(28), StringType, nullable = true)
-    val educationLevelField = StructField(colNames(29), StringType, nullable = true)
+
+  def getStandardPoliceReportSchema: StructType = {
+    val policeReportNumberField = StructField(standardPoliceReportCsvColumns.head, LongType, nullable = true)
+    val policeReportYearField = StructField(standardPoliceReportCsvColumns(1), IntegerType, nullable = true)
+    val policeStationIdField = StructField(standardPoliceReportCsvColumns(2), IntegerType, nullable = true)
+    val departmentNameField = StructField(standardPoliceReportCsvColumns(3), StringType, nullable = true)
+    val sectionNameField = StructField(standardPoliceReportCsvColumns(4), StringType, nullable = true)
+    val policeStationNameField = StructField(standardPoliceReportCsvColumns(5), StringType, nullable = true)
+    val circDepartmentNameField = StructField(standardPoliceReportCsvColumns(6), StringType, nullable = true)
+    val circSectionNameField = StructField(standardPoliceReportCsvColumns(7), StringType, nullable = true)
+    val circPoliceStationField = StructField(standardPoliceReportCsvColumns(8), StringType, nullable = true)
+    val yearField = StructField(standardPoliceReportCsvColumns(9), IntegerType, nullable = true)
+    val monthField = StructField(standardPoliceReportCsvColumns(10), IntegerType, nullable = true)
+    val reportDateField = StructField(standardPoliceReportCsvColumns(11), StringType, nullable = true)
+    val reportTimeField = StructField(standardPoliceReportCsvColumns(12), StringType, nullable = true)
+    val flagStatusField = StructField(standardPoliceReportCsvColumns(13), StringType, nullable = true)
+    val signatureField = StructField(standardPoliceReportCsvColumns(14), StringType, nullable = true)
+    val aftermathField = StructField(standardPoliceReportCsvColumns(15), StringType, nullable = true)
+    val proceedingsField = StructField(standardPoliceReportCsvColumns(16), StringType, nullable = true)
+    val latitudeField = StructField(standardPoliceReportCsvColumns(17), StringType, nullable = true)
+    val longitudeField = StructField(standardPoliceReportCsvColumns(18), StringType, nullable = true)
+    val cityField = StructField(standardPoliceReportCsvColumns(19), StringType, nullable = true)
+    val addressField = StructField(standardPoliceReportCsvColumns(20), StringType, nullable = true)
+    val addressNumber = StructField(standardPoliceReportCsvColumns(21), StringType, nullable = true)
+    val flagStatus2Field = StructField(standardPoliceReportCsvColumns(22), StringType, nullable = true)
+    val personTypeDescriptionField = StructField(standardPoliceReportCsvColumns(23), StringType, nullable = true)
+    val personContField = StructField(standardPoliceReportCsvColumns(24), StringType, nullable = true)
+    val genderField = StructField(standardPoliceReportCsvColumns(25), StringType, nullable = true)
+    val ageField = StructField(standardPoliceReportCsvColumns(26), StringType, nullable = true)
+    val colorField = StructField(standardPoliceReportCsvColumns(27), StringType, nullable = true)
+    val occupationField = StructField(standardPoliceReportCsvColumns(28), StringType, nullable = true)
+    val educationLevelField = StructField(standardPoliceReportCsvColumns(29), StringType, nullable = true)
 
     val fields = List(
       policeReportNumberField,
