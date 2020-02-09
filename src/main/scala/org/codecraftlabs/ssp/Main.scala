@@ -4,7 +4,7 @@ import org.apache.log4j.Logger
 import org.apache.spark.sql.SparkSession
 import org.codecraftlabs.spark.utils.ArgsUtils.parseArgs
 import org.codecraftlabs.spark.utils.Timer.timed
-import org.codecraftlabs.ssp.data.SSPDataHandler.{getStandardPoliceReportSchema, readContents}
+import org.codecraftlabs.ssp.data.SSPDataHandler.{getStandardPoliceReportSchema, readContents, getDigitalReportDescriptionSchema}
 
 object Main {
   private val GeneralInputFolder: String = "--general-input-folder"
@@ -27,5 +27,9 @@ object Main {
     logger.info("Loading BO CSV files")
     val policeReports = timed("Reading all police reports", readContents(s"$regularReportFolder/*.csv", "csv", sparkSession, getStandardPoliceReportSchema))
     policeReports.show(10)
+
+    logger.info("Loading field description CSV")
+    val digitalReportFields = readContents(s"$generalInputFolder/*.csv", "csv", sparkSession, getDigitalReportDescriptionSchema)
+    digitalReportFields.show(10)
   }
 }

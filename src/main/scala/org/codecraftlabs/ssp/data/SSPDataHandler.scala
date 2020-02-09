@@ -37,6 +37,11 @@ object SSPDataHandler {
     "DESCR_GRAU_INSTRUCAO"
   )
 
+  private val digitalReportFieldCsvColumns: Seq[String] = Seq(
+    "Field",
+    "Description"
+  )
+
   val StandardPoliceReportColumnNames: Seq[String] = Seq(
     "reportNumber",
     "reportYear",
@@ -78,6 +83,14 @@ object SSPDataHandler {
       .load(file)
   }
 
+
+  def getDigitalReportDescriptionSchema: StructType = {
+    val fieldNameField = StructField(digitalReportFieldCsvColumns(0), StringType, nullable = true)
+    val descriptionField = StructField(digitalReportFieldCsvColumns(1), StringType, nullable = true)
+
+    val fields = List(fieldNameField, descriptionField)
+    StructType(fields)
+  }
 
   def getStandardPoliceReportSchema: StructType = {
     val policeReportNumberField = StructField(standardPoliceReportCsvColumns.head, LongType, nullable = true)
