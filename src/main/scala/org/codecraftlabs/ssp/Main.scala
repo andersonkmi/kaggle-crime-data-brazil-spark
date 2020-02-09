@@ -7,7 +7,6 @@ import org.codecraftlabs.spark.utils.Timer.timed
 import org.codecraftlabs.ssp.data.SSPDataHandler.readContents
 
 object Main {
-  private val InputFolder: String = "--input-folder"
   private val GeneralInputFolder: String = "--general-input-folder"
   private val RegularReportFolder: String = "--regular-report-folder"
   private val DigitalReportFolder: String = "--digital-report-folder"
@@ -18,7 +17,6 @@ object Main {
     logger.info("Starting application")
 
     val argsMap = parseArgs(args)
-    val inputFolder = argsMap(InputFolder)
     val generalInputFolder = argsMap(GeneralInputFolder)
     val regularReportFolder = argsMap(RegularReportFolder)
     val digitalReportFolder = argsMap(DigitalReportFolder)
@@ -26,8 +24,8 @@ object Main {
     val sparkSession: SparkSession = SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").getOrCreate()
     import sparkSession.implicits._
 
-    logger.info("Loading all CSV files")
-    val policeReports = timed("Reading all police reports", readContents(s"$inputFolder/*.csv", "csv", sparkSession))
+    logger.info("Loading BO CSV files")
+    val policeReports = timed("Reading all police reports", readContents(s"$regularReportFolder/*.csv", "csv", sparkSession))
     policeReports.show(10)
   }
 }
