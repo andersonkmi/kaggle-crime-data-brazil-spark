@@ -9,6 +9,8 @@ import org.codecraftlabs.ssp.data.SSPDataHandler.readContents
 object Main {
   private val InputFolder: String = "--input-folder"
   private val GeneralInputFolder: String = "--general-input-folder"
+  private val RegularReportFolder: String = "--regular-report-folder"
+  private val DigitalReportFolder: String = "--digital-report-folder"
 
   def main(args: Array[String]): Unit = {
 
@@ -17,6 +19,9 @@ object Main {
 
     val argsMap = parseArgs(args)
     val inputFolder = argsMap(InputFolder)
+    val generalInputFolder = argsMap(GeneralInputFolder)
+    val regularReportFolder = argsMap(RegularReportFolder)
+    val digitalReportFolder = argsMap(DigitalReportFolder)
 
     val sparkSession: SparkSession = SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").getOrCreate()
     import sparkSession.implicits._
