@@ -22,5 +22,6 @@ object Main {
 
     logger.info("Loading all CSV files")
     val policeReports = timed("Reading all police reports", readContents("csv", s"$inputFolder/*.csv", sparkSession))
+    policeReports.show(10)
   }
 }
