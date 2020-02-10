@@ -19,17 +19,17 @@ object Main {
     val argsMap = parseArgs(args)
     val generalInputFolder = argsMap(GeneralInputFolder)
     val regularReportFolder = argsMap(RegularReportFolder)
-    val digitalReportFolder = argsMap(DigitalReportFolder)
+    //val digitalReportFolder = argsMap(DigitalReportFolder)
 
     val sparkSession: SparkSession = SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").getOrCreate()
     import sparkSession.implicits._
 
-    logger.info("Loading BO CSV files")
-    val policeReports = timed("Reading all police reports", readContents(s"$regularReportFolder/*.csv", "csv", sparkSession, getStandardPoliceReportSchema))
-    policeReports.show(10)
-
     logger.info("Loading field description CSV")
     val digitalReportFields = readContents(s"$generalInputFolder/*.csv", "csv", sparkSession, getDigitalReportDescriptionSchema)
     digitalReportFields.show(10)
+
+    logger.info("Loading BO CSV files")
+    val policeReports = timed("Reading all police reports", readContents(s"$regularReportFolder/*.csv", "csv", sparkSession, getStandardPoliceReportSchema))
+    policeReports.show(10)
   }
 }
