@@ -40,7 +40,10 @@ object SSPDataHandler {
   private val digitalPoliceReportCsvColumns: Seq[String] = Seq (
     "ID_DELEGACIA",
     "NOME_DEPARTAMENTO",
-    "NOME_SECCIONAL"
+    "NOME_SECCIONAL",
+    "NOME_DELEGACIA",
+    "CIDADE",
+    "ANO_BO"
   )
 
   private val digitalReportFieldCsvColumns: Seq[String] = Seq(
