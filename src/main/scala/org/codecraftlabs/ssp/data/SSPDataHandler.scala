@@ -43,7 +43,16 @@ object SSPDataHandler {
     "NOME_SECCIONAL",
     "NOME_DELEGACIA",
     "CIDADE",
-    "ANO_BO"
+    "ANO_BO",
+    "NUM_BO",
+    "NOME_DEPARTAMENTO_CIRC",
+    "NOME_SECCIONAL_CIRC",
+    "NOME_DELEGACIA_CIRC",
+    "NOME_MUNICIPIO_CIRC",
+    "DESCR_TIPO_BO",
+    "DATA_OCORRENCIA_BO",
+    "HORA_OCORRENCIA_BO",
+    "DATAHORA_COMUNICACAO_BO"
   )
 
   private val digitalReportFieldCsvColumns: Seq[String] = Seq(
