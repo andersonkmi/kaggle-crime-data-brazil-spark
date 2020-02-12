@@ -52,7 +52,22 @@ object SSPDataHandler {
     "DESCR_TIPO_BO",
     "DATA_OCORRENCIA_BO",
     "HORA_OCORRENCIA_BO",
-    "DATAHORA_COMUNICACAO_BO"
+    "DATAHORA_COMUNICACAO_BO",
+    "FLAG_STATUS",
+    "RUBRICA",
+    "DESCR_CONDUTA",
+    "DESDOBRAMENTO",
+    "DESCR_TIPOLOCAL",
+    "DESCR_SUBTIPOLOCAL",
+    "LOGRADOURO",
+    "NUMERO_LOGRADOURO",
+    "LATITUDE",
+    "LONGITUDE",
+    "DESCR_TIPO_PESSOA",
+    "FLAG_VITIMA_FATAL",
+    "SEXO_PESSOA",
+    "IDADE_PESSOA",
+    "COR_CUTIS"
   )
 
   private val digitalReportFieldCsvColumns: Seq[String] = Seq(
