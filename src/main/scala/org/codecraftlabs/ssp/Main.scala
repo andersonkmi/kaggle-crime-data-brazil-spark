@@ -4,7 +4,7 @@ import org.apache.log4j.Logger
 import org.apache.spark.sql.SparkSession
 import org.codecraftlabs.spark.utils.ArgsUtils.parseArgs
 import org.codecraftlabs.spark.utils.Timer.timed
-import org.codecraftlabs.ssp.data.SSPDataHandler.{getStandardPoliceReportSchema, readContents, getDigitalReportDescriptionSchema}
+import org.codecraftlabs.ssp.data.SSPDataHandler.{getStandardPoliceReportSchema, readContents, getDigitalReportDescriptionSchema, getDigitalPoliceReportSchema}
 
 object Main {
   private val GeneralInputFolder: String = "--general-input-folder"
@@ -19,7 +19,7 @@ object Main {
     val argsMap = parseArgs(args)
     val generalInputFolder = argsMap(GeneralInputFolder)
     val regularReportFolder = argsMap(RegularReportFolder)
-    //val digitalReportFolder = argsMap(DigitalReportFolder)
+    val digitalReportFolder = argsMap(DigitalReportFolder)
 
     val sparkSession: SparkSession = SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").getOrCreate()
     import sparkSession.implicits._
@@ -31,5 +31,9 @@ object Main {
     logger.info("Loading BO CSV files")
     val policeReports = timed("Reading all police reports", readContents(s"$regularReportFolder/*.csv", "csv", sparkSession, getStandardPoliceReportSchema))
     policeReports.show(10)
+
+    logger.info("Loading RDO csv files")
+    val digitalPoliceReports = timed("Reading all digital police reports", readContents(s"$digitalReportFolder/*.csv", "csv", sparkSession, getDigitalPoliceReportSchema))
+    digitalPoliceReports.show(10)
   }
 }

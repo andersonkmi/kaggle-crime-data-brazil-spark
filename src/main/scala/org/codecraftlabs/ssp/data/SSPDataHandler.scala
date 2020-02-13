@@ -125,6 +125,8 @@ object SSPDataHandler {
     StructType(fields)
   }
 
+  def getDigitalPoliceReportSchema: StructType = ???
+
   def getStandardPoliceReportSchema: StructType = {
     val policeReportNumberField = StructField(standardPoliceReportCsvColumns.head, LongType, nullable = true)
     val policeReportYearField = StructField(standardPoliceReportCsvColumns(1), IntegerType, nullable = true)
