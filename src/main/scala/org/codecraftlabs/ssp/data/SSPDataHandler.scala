@@ -135,6 +135,22 @@ object SSPDataHandler {
     val reportNumberField = StructField(digitalPoliceReportCsvColumns(6), LongType, nullable = false)
     val circDepartmentNameField = StructField(digitalPoliceReportCsvColumns(7), StringType, nullable = false)
     val circSectionNameField = StructField(digitalPoliceReportCsvColumns(8), StringType, nullable = false)
+    val circPoliceStationNameField = StructField(digitalPoliceReportCsvColumns(9), StringType, nullable = false)
+    val reportTypeDescriptionField = StructField(digitalPoliceReportCsvColumns(10), StringType, nullable = false)
+    val reportDateField = StructField(digitalPoliceReportCsvColumns(11), StringType, nullable = false)
+    val reportTimeField = StructField(digitalPoliceReportCsvColumns(12), StringType, nullable = false)
+    val reportCommunicationDateTimeField = StructField(digitalPoliceReportCsvColumns(13), StringType, nullable = false)
+    val flagStatusField = StructField(digitalPoliceReportCsvColumns(14), StringType, nullable = false)
+    val signatureField = StructField(digitalPoliceReportCsvColumns(15), StringType, nullable = false)
+    val proceedingsField = StructField(digitalPoliceReportCsvColumns(16), StringType, nullable = false)
+    val rolloutField = StructField(digitalPoliceReportCsvColumns(17), StringType, nullable = false)
+    val locationTypeDescriptionField = StructField(digitalPoliceReportCsvColumns(18), StringType, nullable = false)
+    val locationSubtypeDescriptionField = StructField(digitalPoliceReportCsvColumns(19), StringType, nullable = false)
+    val addressField = StructField(digitalPoliceReportCsvColumns(20), StringType, nullable = false)
+    val addressNumberField = StructField(digitalPoliceReportCsvColumns(21), StringType, nullable = false)
+    val latitudeField = StructField(digitalPoliceReportCsvColumns(22), StringType, nullable = false)
+    val longitudeField = StructField(digitalPoliceReportCsvColumns(23), StringType, nullable = false)
+    val personTypeDescriptionField = StructField(digitalPoliceReportCsvColumns(24), StringType, nullable = false)
 
     val fields = List(
       policeStateIdField,
@@ -145,7 +161,23 @@ object SSPDataHandler {
       yearField,
       reportNumberField,
       circDepartmentNameField,
-      circSectionNameField
+      circSectionNameField,
+      circPoliceStationNameField,
+      reportTypeDescriptionField,
+      reportDateField,
+      reportTimeField,
+      reportCommunicationDateTimeField,
+      flagStatusField,
+      signatureField,
+      proceedingsField,
+      rolloutField,
+      locationTypeDescriptionField,
+      locationSubtypeDescriptionField,
+      addressField,
+      addressNumberField,
+      latitudeField,
+      longitudeField,
+      personTypeDescriptionField
     )
 
     StructType(fields)
