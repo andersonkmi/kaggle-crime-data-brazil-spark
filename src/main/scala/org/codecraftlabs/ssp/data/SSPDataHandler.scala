@@ -2,6 +2,7 @@ package org.codecraftlabs.ssp.data
 
 import org.apache.spark.sql.types.{IntegerType, LongType, StringType, StructField, StructType}
 import org.apache.spark.sql.{DataFrame, SparkSession}
+import org.codecraftlabs.spark.utils.DataFormat.DataFormat
 
 object SSPDataHandler {
   private val standardPoliceReportCsvColumns: Seq[String] = Seq(
@@ -108,7 +109,7 @@ object SSPDataHandler {
     "educationLevel"
   )
 
-  def readContents(file: String, formatName: String, session: SparkSession, structType: StructType, hasHeader: Boolean = true, delimiter: String = ","): DataFrame = {
+  def readContents(file: String, formatName: DataFormat, session: SparkSession, structType: StructType, hasHeader: Boolean = true, delimiter: String = ","): DataFrame = {
     session.read.format(formatName)
       .schema(structType)
       .option("header", hasHeader.toString)

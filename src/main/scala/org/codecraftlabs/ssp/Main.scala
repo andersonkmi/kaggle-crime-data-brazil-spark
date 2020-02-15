@@ -3,8 +3,9 @@ package org.codecraftlabs.ssp
 import org.apache.log4j.Logger
 import org.apache.spark.sql.SparkSession
 import org.codecraftlabs.spark.utils.ArgsUtils.parseArgs
+import org.codecraftlabs.spark.utils.DataFormat.CSV
 import org.codecraftlabs.spark.utils.Timer.timed
-import org.codecraftlabs.ssp.data.SSPDataHandler.{getStandardPoliceReportSchema, readContents, getDigitalReportDescriptionSchema, getDigitalPoliceReportSchema}
+import org.codecraftlabs.ssp.data.SSPDataHandler.{getDigitalPoliceReportSchema, getDigitalReportDescriptionSchema, getStandardPoliceReportSchema, readContents}
 
 object Main {
   private val GeneralInputFolder: String = "--general-input-folder"
@@ -25,15 +26,15 @@ object Main {
     //import sparkSession.implicits._
 
     logger.info("Loading field description CSV")
-    val digitalReportFields = readContents(s"$generalInputFolder/*.csv", "csv", sparkSession, getDigitalReportDescriptionSchema)
+    val digitalReportFields = readContents(s"$generalInputFolder/*.csv", CSV, sparkSession, getDigitalReportDescriptionSchema)
     digitalReportFields.show(10)
 
     logger.info("Loading BO (standard reports) CSV files")
-    val policeReports = timed("Reading all police reports", readContents(s"$regularReportFolder/*.csv", "csv", sparkSession, getStandardPoliceReportSchema))
+    val policeReports = timed("Reading all police reports", readContents(s"$regularReportFolder/*.csv", CSV, sparkSession, getStandardPoliceReportSchema))
     policeReports.show(10)
 
     logger.info("Loading RDO (digital reports) CSV files")
-    val digitalPoliceReports = timed("Reading all digital police reports", readContents(s"$digitalReportFolder/*.csv", "csv", sparkSession, getDigitalPoliceReportSchema))
+    val digitalPoliceReports = timed("Reading all digital police reports", readContents(s"$digitalReportFolder/*.csv", CSV, sparkSession, getDigitalPoliceReportSchema))
     digitalPoliceReports.show(10)
   }
 }
