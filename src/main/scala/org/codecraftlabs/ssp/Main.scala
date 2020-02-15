@@ -25,7 +25,7 @@ object Main {
     val digitalReportFolder = argsMap(DigitalReportFolder)
 
     val sparkSession: SparkSession = SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").getOrCreate()
-    //import sparkSession.implicits._
+    import sparkSession.implicits._
 
     logger.info("Loading field description CSV")
     val digitalReportFields = readContents(s"$generalInputFolder/$FileExtension", CSV, sparkSession, getDigitalReportDescriptionSchema)
