@@ -12,6 +12,7 @@ object Main {
   private val RegularReportFolder: String = "--regular-report-folder"
   private val DigitalReportFolder: String = "--digital-report-folder"
   private val FileExtension: String = "*.csv"
+  private val RowNumber: Int = 10
 
   def main(args: Array[String]): Unit = {
 
@@ -28,14 +29,14 @@ object Main {
 
     logger.info("Loading field description CSV")
     val digitalReportFields = readContents(s"$generalInputFolder/$FileExtension", CSV, sparkSession, getDigitalReportDescriptionSchema)
-    digitalReportFields.show(10)
+    digitalReportFields.show(RowNumber)
 
     logger.info("Loading BO (standard reports) CSV files")
     val policeReports = timed("Reading all police reports", readContents(s"$regularReportFolder/$FileExtension", CSV, sparkSession, getStandardPoliceReportSchema))
-    policeReports.show(10)
+    policeReports.show(RowNumber)
 
     logger.info("Loading RDO (digital reports) CSV files")
     val digitalPoliceReports = timed("Reading all digital police reports", readContents(s"$digitalReportFolder/$FileExtension", CSV, sparkSession, getDigitalPoliceReportSchema))
-    digitalPoliceReports.show(10)
+    digitalPoliceReports.show(RowNumber)
   }
 }
