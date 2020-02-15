@@ -118,7 +118,7 @@ object SSPDataHandler {
 
 
   def getDigitalReportDescriptionSchema: StructType = {
-    val fieldNameField = StructField(digitalReportFieldCsvColumns(0), StringType, nullable = true)
+    val fieldNameField = StructField(digitalReportFieldCsvColumns.head, StringType, nullable = true)
     val descriptionField = StructField(digitalReportFieldCsvColumns(1), StringType, nullable = true)
 
     val fields = List(fieldNameField, descriptionField)
@@ -126,7 +126,7 @@ object SSPDataHandler {
   }
 
   def getDigitalPoliceReportSchema: StructType = {
-    val policeStateIdField = StructField(digitalPoliceReportCsvColumns(0), LongType, nullable = false)
+    val policeStateIdField = StructField(digitalPoliceReportCsvColumns.head, LongType, nullable = false)
     val departmentNameField = StructField(digitalPoliceReportCsvColumns(1), StringType, nullable = false)
     val sectionNameField = StructField(digitalPoliceReportCsvColumns(2), StringType, nullable = false)
     val policeStationNameField = StructField(digitalPoliceReportCsvColumns(3), StringType, nullable = false)
@@ -151,6 +151,10 @@ object SSPDataHandler {
     val latitudeField = StructField(digitalPoliceReportCsvColumns(22), StringType, nullable = false)
     val longitudeField = StructField(digitalPoliceReportCsvColumns(23), StringType, nullable = false)
     val personTypeDescriptionField = StructField(digitalPoliceReportCsvColumns(24), StringType, nullable = false)
+    val fatalVictimFlagField = StructField(digitalPoliceReportCsvColumns(25), StringType, nullable = false)
+    val genderField = StructField(digitalPoliceReportCsvColumns(26), StringType, nullable = false)
+    val ageField = StructField(digitalPoliceReportCsvColumns(27), StringType, nullable = false)
+    val skinColorField = StructField(digitalPoliceReportCsvColumns(28), StringType, nullable = false)
 
     val fields = List(
       policeStateIdField,
@@ -177,7 +181,11 @@ object SSPDataHandler {
       addressNumberField,
       latitudeField,
       longitudeField,
-      personTypeDescriptionField
+      personTypeDescriptionField,
+      fatalVictimFlagField,
+      genderField,
+      ageField,
+      skinColorField
     )
 
     StructType(fields)
