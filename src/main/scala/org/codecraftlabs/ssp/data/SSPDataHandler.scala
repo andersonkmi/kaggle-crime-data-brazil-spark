@@ -133,6 +133,8 @@ object SSPDataHandler {
     val cityField = StructField(digitalPoliceReportCsvColumns(4), StringType, nullable = false)
     val yearField = StructField(digitalPoliceReportCsvColumns(5), IntegerType, nullable = false)
     val reportNumberField = StructField(digitalPoliceReportCsvColumns(6), LongType, nullable = false)
+    val circDepartmentNameField = StructField(digitalPoliceReportCsvColumns(7), StringType, nullable = false)
+    val circSectionNameField = StructField(digitalPoliceReportCsvColumns(8), StringType, nullable = false)
 
     val fields = List(
       policeStateIdField,
@@ -141,7 +143,9 @@ object SSPDataHandler {
       policeStationNameField,
       cityField,
       yearField,
-      reportNumberField
+      reportNumberField,
+      circDepartmentNameField,
+      circSectionNameField
     )
 
     StructType(fields)
