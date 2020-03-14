@@ -41,7 +41,7 @@ object Main {
     digitalPoliceReports.show(RowNumber)
 
     // Extract police station names and ids
-    val policeStations = extractColumns(policeReports, List("ID_DELEGACIA", "DELEGACIA"))
+    val policeStations = extractColumns(policeReports, List("ID_DELEGACIA", "DELEGACIA")).sort("DELEGACIA")
     policeStations.show(RowNumber)
   }
 }
