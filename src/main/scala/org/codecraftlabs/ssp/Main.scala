@@ -48,5 +48,9 @@ object Main {
 
     val policeStationsFromDigitalReports = timed("Extraction police stations", extractColumns(digitalPoliceReportsDataFrame, List("policeStationId" , "policeStationName")).sort("policeStationName"))
     policeStationsFromDigitalReports.show(RowNumber)
+
+    // merge both data frames
+    val policeStationDF = policeStationsFromReports.join(policeStationsFromDigitalReports, Seq("policeStationId", "policeStationName"))
+    policeStationDF.show(RowNumber)
   }
 }
