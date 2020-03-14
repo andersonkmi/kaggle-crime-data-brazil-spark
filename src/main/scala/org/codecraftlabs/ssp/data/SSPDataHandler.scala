@@ -104,9 +104,42 @@ object SSPDataHandler {
     "personCont",
     "gender",
     "age",
-    "color",
+    "skinColor",
     "occupation",
     "educationLevel"
+  )
+
+  val DigitalPoliceReportColumns: Seq[String] = Seq (
+    "policeStationId",
+    "departmentName",
+    "sectionName",
+    "policeStationName",
+    "city",
+    "reportYear",
+    "reportNumber",
+    "circDepartmentName",
+    "circSectionName",
+    "circPoliceStationName",
+    "circCityName",
+    "reportTypeDescription",
+    "reportDate",
+    "reportTime",
+    "communicationDateTime",
+    "flagStatus",
+    "signature",
+    "proceedings",
+    "aftermath",
+    "locationTypeDescription",
+    "subTypeDescription",
+    "address",
+    "addressNumber",
+    "latitude",
+    "longitude",
+    "personTypeDescription",
+    "fatalVictimFlag",
+    "gender",
+    "age",
+    "skinColor"
   )
 
   def readContents(file: String, formatName: DataFormat, session: SparkSession, structType: StructType, hasHeader: Boolean = true, delimiter: String = ","): DataFrame = {
