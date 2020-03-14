@@ -6,8 +6,7 @@ import org.codecraftlabs.spark.utils.ArgsUtils.parseArgs
 import org.codecraftlabs.spark.utils.DataFormat.CSV
 import org.codecraftlabs.spark.utils.Timer.timed
 import org.codecraftlabs.ssp.DatasetExtractorUtil.extractColumns
-import org.codecraftlabs.ssp.data.{SSPDataHandler, StandardPoliceReport}
-import org.codecraftlabs.ssp.data.SSPDataHandler.{getDigitalPoliceReportSchema, getDigitalReportDescriptionSchema, getStandardPoliceReportSchema, readContents}
+import org.codecraftlabs.ssp.data.SSPDataHandler._
 
 object Main {
   private val GeneralInputFolder: String = "--general-input-folder"
@@ -35,12 +34,13 @@ object Main {
 
     logger.info("Loading BO (standard reports) CSV files")
     val policeReports = timed("Reading all police reports", readContents(s"$regularReportFolder/$fileExtension", CSV, sparkSession, getStandardPoliceReportSchema))
-    val policeReportsDataFrame = policeReports.toDF(SSPDataHandler.StandardPoliceReportColumnNames: _*)
+    val policeReportsDataFrame = policeReports.toDF(StandardPoliceReportColumnNames: _*)
     policeReportsDataFrame.show(RowNumber)
 
     logger.info("Loading RDO (digital reports) CSV files")
     val digitalPoliceReports = timed("Reading all digital police reports", readContents(s"$digitalReportFolder/$fileExtension", CSV, sparkSession, getDigitalPoliceReportSchema))
-    digitalPoliceReports.show(RowNumber)
+    val digitalPoliceReportsDataFrame = digitalPoliceReports.toDF(DigitalPoliceReportColumns: _*)
+    digitalPoliceReportsDataFrame.show(RowNumber)
 
     // Extract police station names and ids
     val policeStations = extractColumns(policeReportsDataFrame, List("policeStationId" , "policeStationName")).sort("policeStationName")
