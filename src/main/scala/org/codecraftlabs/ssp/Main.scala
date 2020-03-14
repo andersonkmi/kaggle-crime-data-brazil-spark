@@ -43,7 +43,10 @@ object Main {
     digitalPoliceReportsDataFrame.show(RowNumber)
 
     // Extract police station names and ids
-    val policeStations = extractColumns(policeReportsDataFrame, List("policeStationId" , "policeStationName")).sort("policeStationName")
-    policeStations.show(RowNumber)
+    val policeStationsFromReports = extractColumns(policeReportsDataFrame, List("policeStationId" , "policeStationName")).sort("policeStationName")
+    policeStationsFromReports.show(RowNumber)
+
+    val policeStationsFromDigitalReports = extractColumns(digitalPoliceReportsDataFrame, List("policeStationId" , "policeStationName")).sort("policeStationName")
+    policeStationsFromDigitalReports.show(RowNumber)
   }
 }
