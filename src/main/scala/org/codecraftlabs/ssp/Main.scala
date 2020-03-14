@@ -5,6 +5,7 @@ import org.apache.spark.sql.SparkSession
 import org.codecraftlabs.spark.utils.ArgsUtils.parseArgs
 import org.codecraftlabs.spark.utils.DataFormat.CSV
 import org.codecraftlabs.spark.utils.Timer.timed
+import org.codecraftlabs.ssp.DatasetExtractorUtil.extractColumns
 import org.codecraftlabs.ssp.data.SSPDataHandler.{getDigitalPoliceReportSchema, getDigitalReportDescriptionSchema, getStandardPoliceReportSchema, readContents}
 
 object Main {
@@ -26,10 +27,9 @@ object Main {
     val fileExtension = argsMap(FileExtension)
 
     val sparkSession: SparkSession = SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").getOrCreate()
-    import sparkSession.implicits._
 
     logger.info("Loading field description CSV")
-    val digitalReportFields = readContents(s"$generalInputFolder/$fileExtension", CSV, sparkSession, getDigitalReportDescriptionSchema)
+    val digitalReportFields = timed("Reading CSV file description", readContents(s"$generalInputFolder/$fileExtension", CSV, sparkSession, getDigitalReportDescriptionSchema))
     digitalReportFields.show(RowNumber)
 
     logger.info("Loading BO (standard reports) CSV files")
@@ -39,5 +39,9 @@ object Main {
     logger.info("Loading RDO (digital reports) CSV files")
     val digitalPoliceReports = timed("Reading all digital police reports", readContents(s"$digitalReportFolder/$fileExtension", CSV, sparkSession, getDigitalPoliceReportSchema))
     digitalPoliceReports.show(RowNumber)
+
+    // Extract police station names and ids
+    val policeStations = extractColumns(policeReports, List("ID_DELEGACIA", "DELEGACIA"))
+    policeStations.show(RowNumber)
   }
 }
