@@ -5,8 +5,8 @@ import org.apache.spark.sql.SparkSession
 import org.codecraftlabs.spark.utils.ArgsUtils.parseArgs
 import org.codecraftlabs.spark.utils.DataFormat.CSV
 import org.codecraftlabs.spark.utils.Timer.timed
-import org.codecraftlabs.ssp.DatasetExtractorUtil.extractColumns
 import org.codecraftlabs.ssp.data.SSPDataHandler._
+import org.codecraftlabs.utils.PoliceStationDataUtil.unifyPoliceStationDataFrames
 
 object Main {
   private val GeneralInputFolder: String = "--general-input-folder"
@@ -43,14 +43,7 @@ object Main {
     digitalPoliceReportsDataFrame.show(RowNumber)
 
     // Extract police station names and ids
-    val policeStationsFromReports = timed("Extracting police stations", extractColumns(policeReportsDataFrame, List("policeStationId" , "policeStationName")).sort("policeStationName"))
-    policeStationsFromReports.show(RowNumber)
-
-    val policeStationsFromDigitalReports = timed("Extraction police stations", extractColumns(digitalPoliceReportsDataFrame, List("policeStationId" , "policeStationName")).sort("policeStationName"))
-    policeStationsFromDigitalReports.show(RowNumber)
-
-    // merge both data frames
-    val policeStationDF = policeStationsFromReports.join(policeStationsFromDigitalReports, Seq("policeStationId", "policeStationName"))
+    val policeStationDF = unifyPoliceStationDataFrames(policeReportsDataFrame, digitalPoliceReportsDataFrame)
     policeStationDF.show(RowNumber)
   }
 }

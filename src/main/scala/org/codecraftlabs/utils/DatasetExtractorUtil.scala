@@ -1,4 +1,4 @@
-package org.codecraftlabs.ssp
+package org.codecraftlabs.utils
 
 import org.apache.log4j.Logger
 import org.apache.spark.sql.DataFrame
