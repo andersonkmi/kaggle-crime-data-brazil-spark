@@ -13,6 +13,7 @@ object Main {
   private val RegularReportFolder: String = "--regular-report-folder"
   private val DigitalReportFolder: String = "--digital-report-folder"
   private val FileExtension: String = "--file-extension"
+  private val ExecutionMode: String = "--execution-mode"
   private val RowNumber: Int = 10
 
   def main(args: Array[String]): Unit = {
@@ -24,9 +25,10 @@ object Main {
     val generalInputFolder = argsMap(GeneralInputFolder)
     val regularReportFolder = argsMap(RegularReportFolder)
     val digitalReportFolder = argsMap(DigitalReportFolder)
-    val fileExtension = argsMap(FileExtension)
+    val fileExtension = argsMap.getOrElse(FileExtension, "*.csv")
+    val executionMode = argsMap.getOrElse(ExecutionMode, "dev")
 
-    val sparkSession: SparkSession = SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").getOrCreate()
+    val sparkSession: SparkSession = if (executionMode.equals("dev")) SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").config("spark.driver.bindAddress", "127.0.0.1").getOrCreate() else SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").getOrCreate()
 
     logger.info("Loading field description CSV")
     val digitalReportFields = timed("Reading CSV file description", readContents(s"$generalInputFolder/$fileExtension", CSV, sparkSession, getDigitalReportDescriptionSchema))
