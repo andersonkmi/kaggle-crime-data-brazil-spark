@@ -1,11 +1,12 @@
 package org.codecraftlabs.ssp
 
 import org.apache.log4j.Logger
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{Dataset, SparkSession}
 import org.codecraftlabs.spark.utils.ArgsUtils.parseArgs
 import org.codecraftlabs.spark.utils.DataFormat.CSV
 import org.codecraftlabs.spark.utils.Timer.timed
 import org.codecraftlabs.ssp.data.PoliceReportDataHandler._
+import org.codecraftlabs.ssp.data.PoliceStation
 import org.codecraftlabs.utils.PoliceStationDataUtil.unifyPoliceStationDataFrames
 
 object Main {
@@ -17,6 +18,7 @@ object Main {
   private val RowNumber: Int = 10
 
   def main(args: Array[String]): Unit = {
+    import sparkSession.implicits._
 
     @transient lazy val logger = Logger.getLogger(getClass.getName)
     logger.info("Starting application")
@@ -46,6 +48,7 @@ object Main {
 
     // Extract police station names and ids
     val policeStationDF = unifyPoliceStationDataFrames(policeReportsDataFrame, digitalPoliceReportsDataFrame)
-    policeStationDF.show(RowNumber)
+    val policeStationDataSet : Dataset[PoliceStation] = policeStationDF.as[PoliceStation]
+    policeStationDataSet.show(RowNumber)
   }
 }
