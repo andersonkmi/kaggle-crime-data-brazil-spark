@@ -4,7 +4,7 @@ import org.apache.spark.sql.types.{IntegerType, LongType, StringType, StructFiel
 import org.apache.spark.sql.{DataFrame, SparkSession}
 import org.codecraftlabs.spark.utils.DataFormat.DataFormat
 
-object SSPDataHandler {
+object PoliceReportDataHandler {
   private val standardPoliceReportCsvColumns: Seq[String] = Seq(
     "NUM_BO",
     "ANO_BO",

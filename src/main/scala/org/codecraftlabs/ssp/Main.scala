@@ -5,7 +5,7 @@ import org.apache.spark.sql.SparkSession
 import org.codecraftlabs.spark.utils.ArgsUtils.parseArgs
 import org.codecraftlabs.spark.utils.DataFormat.CSV
 import org.codecraftlabs.spark.utils.Timer.timed
-import org.codecraftlabs.ssp.data.SSPDataHandler._
+import org.codecraftlabs.ssp.data.PoliceReportDataHandler._
 import org.codecraftlabs.utils.PoliceStationDataUtil.unifyPoliceStationDataFrames
 
 object Main {
