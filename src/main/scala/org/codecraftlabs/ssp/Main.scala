@@ -20,8 +20,6 @@ object Main {
   private val RowNumber: Int = 10
 
   def main(args: Array[String]): Unit = {
-    import sparkSession.implicits._
-
     @transient lazy val logger = Logger.getLogger(getClass.getName)
     logger.info("Starting application")
 
@@ -33,6 +31,7 @@ object Main {
     val executionMode = argsMap.getOrElse(ExecutionMode, "dev")
 
     val sparkSession: SparkSession = if (executionMode.equals("dev")) SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").config("spark.driver.bindAddress", "127.0.0.1").getOrCreate() else SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").getOrCreate()
+    import sparkSession.implicits._
 
     logger.info("Loading field description CSV")
     val digitalReportFields = timed("Reading CSV file description", readContents(s"$generalInputFolder/$fileExtension", CSV, sparkSession, getDigitalReportDescriptionSchema))
@@ -49,7 +48,7 @@ object Main {
     digitalPoliceReportsDataFrame.show(RowNumber)
 
     // Extract police station names and ids
-    val policeStationDF = unifyPoliceStationDataFrames(policeReportsDataFrame, digitalPoliceReportsDataFrame)
+    val policeStationDF = unifyPoliceStationDataFrames(policeReportsDataFrame, digitalPoliceReportsDataFrame).distinct().sort("policeStationId")
     val policeStationDataSet : Dataset[PoliceStation] = policeStationDF.as[PoliceStation]
     policeStationDataSet.show(RowNumber)
 
