@@ -4,6 +4,8 @@ import org.apache.log4j.Logger
 import org.apache.spark.sql.{Dataset, SparkSession}
 import org.codecraftlabs.spark.utils.ArgsUtils.parseArgs
 import org.codecraftlabs.spark.utils.DataFormat.CSV
+import org.codecraftlabs.spark.utils.DataSetUtil
+import org.codecraftlabs.spark.utils.DataSetUtil.saveDataSetToCsv
 import org.codecraftlabs.spark.utils.Timer.timed
 import org.codecraftlabs.ssp.data.PoliceReportDataHandler._
 import org.codecraftlabs.ssp.data.PoliceStation
@@ -50,5 +52,8 @@ object Main {
     val policeStationDF = unifyPoliceStationDataFrames(policeReportsDataFrame, digitalPoliceReportsDataFrame)
     val policeStationDataSet : Dataset[PoliceStation] = policeStationDF.as[PoliceStation]
     policeStationDataSet.show(RowNumber)
+
+    // saves the dataset into csv
+    saveDataSetToCsv(policeStationDataSet, 1, "stations.csv")
   }
 }
