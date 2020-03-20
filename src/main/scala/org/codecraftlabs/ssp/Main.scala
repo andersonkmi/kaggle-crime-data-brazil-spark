@@ -53,8 +53,9 @@ object Main {
     val policeStationDF = unifyPoliceStationDataFrames(policeReportsDataFrame, digitalPoliceReportsDataFrame).distinct().sort("policeStationId")
     val policeStationDataSet : Dataset[PoliceStation] = policeStationDF.as[PoliceStation]
     policeStationDataSet.show(RowNumber)
-
-    // saves the dataset into csv
     saveDataSetToCsv(policeStationDataSet, 1, s"${outputFolder}/stations.csv")
+    
+    // Extract police report occurrences
+    val policeOccurrences = None
   }
 }
