@@ -54,7 +54,7 @@ object Main {
     val policeStationDataSet : Dataset[PoliceStation] = policeStationDF.as[PoliceStation]
     policeStationDataSet.show(RowNumber)
     saveDataSetToCsv(policeStationDataSet, 1, s"${outputFolder}/stations.csv")
-    
+
     // Extract police report occurrences
     val policeOccurrences = None
   }
