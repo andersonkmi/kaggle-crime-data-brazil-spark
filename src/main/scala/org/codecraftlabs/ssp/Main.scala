@@ -15,6 +15,7 @@ object Main {
   private val GeneralInputFolder: String = "--general-input-folder"
   private val RegularReportFolder: String = "--regular-report-folder"
   private val DigitalReportFolder: String = "--digital-report-folder"
+  private val OutputFolder: String = "--output-folder"
   private val FileExtension: String = "--file-extension"
   private val ExecutionMode: String = "--execution-mode"
   private val RowNumber: Int = 10
@@ -29,6 +30,7 @@ object Main {
     val digitalReportFolder = argsMap(DigitalReportFolder)
     val fileExtension = argsMap.getOrElse(FileExtension, "*.csv")
     val executionMode = argsMap.getOrElse(ExecutionMode, "dev")
+    val outputFolder = argsMap.getOrElse(OutputFolder, ".")
 
     val sparkSession: SparkSession = if (executionMode.equals("dev")) SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").config("spark.driver.bindAddress", "127.0.0.1").getOrCreate() else SparkSession.builder.appName("kaggle-crime-data-brazil-spark").master("local[*]").getOrCreate()
     import sparkSession.implicits._
@@ -53,6 +55,6 @@ object Main {
     policeStationDataSet.show(RowNumber)
 
     // saves the dataset into csv
-    saveDataSetToCsv(policeStationDataSet, 1, "stations.csv")
+    saveDataSetToCsv(policeStationDataSet, 1, s"${outputFolder}/stations.csv")
   }
 }
