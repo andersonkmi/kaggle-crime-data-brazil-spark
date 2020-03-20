@@ -10,6 +10,7 @@ import org.codecraftlabs.spark.utils.Timer.timed
 import org.codecraftlabs.ssp.data.PoliceReportDataHandler._
 import org.codecraftlabs.ssp.data.PoliceStation
 import org.codecraftlabs.utils.PoliceStationDataUtil.unifyPoliceStationDataFrames
+import org.codecraftlabs.utils.ReportOccurrenceDataUtil
 
 object Main {
   private val GeneralInputFolder: String = "--general-input-folder"
@@ -56,6 +57,7 @@ object Main {
     saveDataSetToCsv(policeStationDataSet, 1, s"${outputFolder}/stations.csv")
 
     // Extract police report occurrences
-    val policeOccurrences = None
+    val policeOccurrences = ReportOccurrenceDataUtil.unifyOccurrencesDataFrames(policeReportsDataFrame, digitalPoliceReportsDataFrame).distinct()
+    policeOccurrences.show(RowNumber)
   }
 }
